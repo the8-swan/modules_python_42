@@ -1,5 +1,3 @@
-#0 to 40 degree
-#allowed function :try, except, int(), print()
 def  check_temperature():
 	print("=== Garden Temperature Checker ===")
 	temp_str = input("Testing temperature: ")
