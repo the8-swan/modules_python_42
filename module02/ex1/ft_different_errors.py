@@ -46,6 +46,5 @@ def test_error_types():
         print("Caught an error, but program continues!\n")
     print("All error types tested successfully!")
 
-if __name__ == "__main__":
-	print("=== Garden Error Types Demo ===\n")
-	test_error_types()
+print("=== Garden Error Types Demo ===\n")
+test_error_types()

@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-def  check_temperature():
-	print("=== Garden Temperature Checker ===")
-	temp_str = input("Testing temperature: ")
+def  check_temperature(temp_str):
 	try : 
 		tmp = int(temp_str)
 		if tmp > 0 and tmp < 40 :
@@ -13,8 +11,14 @@ def  check_temperature():
 
 	except :
 		print(f"Error: '{temp_str}' is not a valid number")
-	print("All tests completed - program didn't crash!")
 
 
-if __name__ == "__main__":
-	 check_temperature()
+print("=== Garden Temperature Checker ===")
+print("")
+
+values = [12, 32, 11, 8, "hii"]
+for v in values:
+	print("Testing temperature :",v)
+	check_temperature(v)
+	print("")
+print("All tests completed - program didn't crash!")
