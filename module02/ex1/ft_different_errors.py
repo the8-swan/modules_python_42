@@ -14,26 +14,26 @@ def garden_operations(error: str):
 
 def test_error_types():
     print("testing ValueError")
-    try: 
+    try:
         garden_operations("value")
     except ValueError:
         print("Caught ValueError: invalid literal for int()\n")
 
     print("testing ZeroDivisionError")
-    try: 
+    try:
         garden_operations("zero")
     except ZeroDivisionError:
         print("Caught ZeroDivisionError: division by zero\n")
 
     print("testing FileNotFoundError")
-    try: 
+    try:
         garden_operations("file")
     except FileNotFoundError:
         print("Caught FileNotFoundError: No such file 'missing.txt'\n")
 
     print("testing KeyError")
-    try: 
-        garden_operations("key") 
+    try:
+        garden_operations("key")
     except KeyError:
         print("Caught KeyError: 'missing swan'\n")
 
