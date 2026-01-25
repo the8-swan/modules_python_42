@@ -4,7 +4,7 @@ def water_plants(plant_list):
     print("Opening watering system")
     try:
         for plant in plant_list:
-            if plant is None:
+            if plant is None or plant == "":
                 raise Exception()
             print("Watering", plant)
     except Exception:
@@ -22,7 +22,7 @@ def test_watering_system():
     print("Watering completed successfully!")
     print("")
     print("Testing with error...")
-    plants_error = ["tomato", None, "carrots"]
+    plants_error = ["tomato", "", "carrots"]
     water_plants(plants_error)
     print("")
     print("Cleanup always happens, even with errors!")
