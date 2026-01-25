@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 def garden_operations(error: str):
+    """ Function that creates different error scenarios """
     if error == "value":
         int("hi")
     elif error == "zero":
@@ -13,6 +14,7 @@ def garden_operations(error: str):
 
 
 def test_error_types():
+    """ Function that shows each type of error and catches them."""
     print("testing ValueError")
     try:
         garden_operations("value")

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 def water_plants(plant_list):
+    """ Water a liste of plants """
     print("Opening watering system")
     try:
         for plant in plant_list:
@@ -13,16 +14,18 @@ def water_plants(plant_list):
 
 
 def test_watering_system():
-    plants = ['Tulip', 'Rose', 'Lilies', 'Sunflowers']
+    """A function that tests water_plants, showing that cleanup always
+    happens, even when there’s an error."""
+    print("=== Garden Watering System ==")
+    plants = ["tomato", "lettuce", "carrots"]
     water_plants(plants)
     print("Watering completed successfully!")
     print("")
     print("Testing with error...")
-    plants_error = ['Tulip', None, 'Lilies', 'Sunflowers']
+    plants_error = ["tomato", None, "carrots"]
     water_plants(plants_error)
     print("")
     print("Cleanup always happens, even with errors!")
 
 
-print("=== Garden Watering System ==")
 test_watering_system()

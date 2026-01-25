@@ -1,18 +1,24 @@
 #!/usr/bin/env python3
 
 class GardenError(Exception):
+    """ A basic error for garden problems"""
     pass
 
 
 class PlantError(GardenError):
+    """For problems with plants (inherits from GardenError)"""
     pass
 
 
 class WaterError(GardenError):
+    """For problems with plants (inherits from GardenError)"""
     pass
 
 
 def test_custom_exceptions():
+    """ Function that raise different custom errors and catches them."""
+    print("=== Custom Garden Errors Demo ===")
+    print("")
     print("Testing PlantError...")
     plant = "tomato"
     try:
@@ -41,6 +47,4 @@ def test_custom_exceptions():
     print("All custom error types work correctly!")
 
 
-print("=== Custom Garden Errors Demo ===")
-print("")
 test_custom_exceptions()

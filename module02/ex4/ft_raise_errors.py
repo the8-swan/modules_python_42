@@ -4,6 +4,9 @@ def check_plant_health(
                     plant_name: str,
                     water_level: int,
                     sunlight_hours: int):
+    """A function that checks plant infos, Raises appropriate errors with
+    helpful messages when something is wrong and Returns a success message
+    if everything is okay"""
     if plant_name == "" or plant_name is None:
         raise ValueError("Error: Plant name cannot be empty!")
     if water_level > 10:
@@ -21,11 +24,13 @@ def check_plant_health(
     if sunlight_hours < 2:
         raise ValueError(
             "Error:"
-            "Sunlight hours {sunlight_hours} is too low (min 2)")
+            f"Sunlight hours {sunlight_hours} is too low (min 2)")
     return f"Plant {plant_name} is healthy!"
 
 
 def test_plant_checks():
+    """ A function for testing check_plant_health """
+    print("=== Garden Plant Health Checker ===")
     tests = [
         ("tomato", 9, 5),
         (None, 9, 5),
@@ -33,6 +38,7 @@ def test_plant_checks():
         ("tomato", 7, -2)
     ]
     for test in tests:
+        print("")
         try:
             result = check_plant_health(
                 test[0],
@@ -42,8 +48,8 @@ def test_plant_checks():
             print(result)
         except ValueError as e:
             print(e)
+    print("")
+    print("All error raising tests completed!")
 
 
-print("=== Garden Plant Health Checker ===")
 test_plant_checks()
-print("All error raising tests completed!")
