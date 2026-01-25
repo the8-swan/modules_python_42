@@ -39,11 +39,15 @@ def test_custom_exceptions():
 
     print("")
     print("Testing catching all garden errors...")
-    try:
-        raise WaterError("Caught WaterError: Not enough water in the tank!")
-        raise PlantError(f"Caught PlantError: The {plant} plant is wilting!")
-    except GardenError as e:
-        print(f"Caught a garden error: {e}")
+    errors = [
+        WaterError("Caught WaterError: Not enough water in the tank!"),
+        PlantError("Caught PlantError: The rose plant is wilting!")
+        ]
+    for error in errors:
+        try:
+            raise error
+        except GardenError as e:
+            print(f"{e}")
     print("All custom error types work correctly!")
 
 
