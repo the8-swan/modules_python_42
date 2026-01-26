@@ -1,8 +1,9 @@
 # open(), read(), write(), with statement, try/except, print()
 def function():
     """A function that display crisis alerts for each access attempt,
-      appropriate response messages based on error types (FileNotFoundError, PermissionError,
-    or other exceptions), status confirmations, and overall security completion."""
+    appropriate response messages based on error types (FileNotFoundError,
+    PermissionError,or other exceptions), status confirmations,
+    and overall security completion."""
     print("=== CYBER ARCHIVES - CRISIS RESPONSE SYSTEM ===\n")
     files = [
         "sws.txt",
