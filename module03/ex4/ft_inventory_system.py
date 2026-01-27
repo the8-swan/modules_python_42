@@ -1,4 +1,3 @@
-#dict(), len(), print(), keys(), values(), items(), get(), update()
 data = {
     "players": {
         "alice": {
@@ -36,13 +35,17 @@ data = {
         "pixel_sword": {"type": "weapon", "value": 150, "rarity": "common"},
         "quantum_ring": {"type": "accessory", "value": 500, "rarity": "rare"},
         "health_byte": {"type": "consumable", "value": 25, "rarity": "common"},
-        "data_crystal": {"type": "material", "value": 1000, "rarity": "legendary"},
+        "data_crystal": {
+            "type": "material", "value": 1000, "rarity": "legendary"},
         "code_bow": {"type": "weapon", "value": 200, "rarity": "uncommon"},
     },
 }
+
+
 def inventory_analytics(data):
     players = data['players']
-    #Most valuable player
+    catalog = data['catalog']
+    # Most valuable player
     total_value = 0
     vplayer = ''
     for player, values in players.items():
@@ -50,7 +53,7 @@ def inventory_analytics(data):
             total_value = values['total_value']
             vplayer = player
     print(f"Most valuable player: {vplayer} ({total_value} gold)")
-    #Most items
+    # Most items
     total_items = 0
     mplayer = ''
     for player, values in players.items():
@@ -58,6 +61,13 @@ def inventory_analytics(data):
             total_items = values['item_count']
             mplayer = player
     print(f"Most items: {mplayer} ({total_items} items)")
+    # Rarest items
+    print("Rarest items: ", end="")
+    for item, value in catalog.items():
+        if value['rarity'] == 'rare':
+            print(item, end="")
+    print("")
+
 
 def storage_system():
     print("=== Player Inventory System ===\n")
@@ -72,21 +82,21 @@ def storage_system():
             f"{quantity}x @ {catalog[item]['value']} gold each = "
             f"{catalog[item]['value'] * quantity} gold"
             )
-        if catalog[item]['type'] in count_categorie :
+        if catalog[item]['type'] in count_categorie:
             count_categorie[catalog[item]['type']] += quantity
-        else: 
+        else:
             count_categorie[catalog[item]['type']] = quantity
-        
+
     print("")
     print(f"Inventory value: {players['alice']['total_value']} gold")
     print(f"Item count: {players['alice']['item_count']} items")
-    print("Categories: ", end = "")
+    print("Categories: ", end="")
     for categorie, count in count_categorie.items():
         index += 1
         if index == len(count_categorie):
             print(f"{categorie}({count})\n")
         else:
-            print(f"{categorie}({count}), ", end = "")
+            print(f"{categorie}({count}), ", end="")
     print("=== Transaction: Alice gives Bob 2 potions ===")
     potions = count_categorie["consumable"]
     gived = 2
@@ -98,13 +108,13 @@ def storage_system():
         if 'health_byte' in players["bob"]["items"]:
             players["bob"]["items"]['health_byte'] += gived
         else:
-             players["bob"]["items"]['health_byte'] = gived
+            players["bob"]["items"]['health_byte'] = gived
     print("=== Updated Inventories ===")
     print(f"Alice potions: {players['alice']['items']['health_byte']}")
     if 'health_byte' in players["bob"]["items"]:
-        print(f"bob potions: {players['bob']['items']['health_byte']}")
+        print(f"bob potions: {players['bob']['items']['health_byte']}\n")
     else:
-        print(f"bob potions: 0")
+        print("bob potions: 0")
     print("=== Inventory Analytics ===")
     inventory_analytics(data)
 
