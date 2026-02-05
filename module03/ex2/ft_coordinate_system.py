@@ -28,7 +28,8 @@ def test_coordinate():
         coords = []
         print("Parsing coordinates:", sys.argv[1])
         try:
-            for val in sys.argv[1].split(','):
+            for val in sys.argv[1].
+            (','):
                 coords.append(int(val))
             print(f"Parsed position: {tuple(coords)}")
             calculate_distance(tuple(coords))

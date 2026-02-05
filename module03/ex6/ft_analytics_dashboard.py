@@ -292,11 +292,9 @@ def list_comprehension(data):
 def dict_comprehension(data):
     player_sc = {name: value['total_score']
                  for name, value in data['players'].items()}
-    score_categorie = {}
     achievements_count = {name: value['achievements_count']
                           for name, value in data['players'].items()}
     print("Player scores: ", player_sc)
-    print("Score categories:", score_categorie)
     print("Achievement counts:", achievements_count)
     print("")
 

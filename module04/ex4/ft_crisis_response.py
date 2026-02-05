@@ -1,4 +1,3 @@
-# open(), read(), write(), with statement, try/except, print()
 def function():
     """A function that display crisis alerts for each access attempt,
     appropriate response messages based on error types (FileNotFoundError,
@@ -31,8 +30,8 @@ def function():
         with open(files[2], 'r') as f:
             print(f"SUCCESS: Archive recovered -''{f.read()} ''")
     except Exception:
-        print("RESPONSE: Security protocols deny access")
-    print("STATUS: Crisis handled, security maintained\n")
+        print("RESPONSE: Security protocols deny access\n")
+    print("STATUS: Crisis handled, security maintained")
 
 
 function()

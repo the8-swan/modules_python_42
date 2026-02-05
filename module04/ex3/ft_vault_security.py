@@ -13,6 +13,7 @@ def function():
     with open("../security_protocols.txt", 'r') as f:
         print(f"{f.read()}")
     print("Vault automatically sealed upon completion\n")
+    print("")
     print("All vault operations completed with maximum security.")
 
 

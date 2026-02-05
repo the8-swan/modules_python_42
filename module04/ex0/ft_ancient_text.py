@@ -18,4 +18,4 @@ def display_content(file_path: str):
 
 print("=== CYBER ARCHIVES - DATA RECOVERY SYSTEM ===\n")
 print("")
-display_content("../ancient_fragment.txt")
+display_content("../oumaima.txt")
