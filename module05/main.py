@@ -67,14 +67,12 @@ class TypeChecker:
     """Validates type annotations in Python code."""
 
     def __init__(self) -> None:
-        self.required_imports = [
-            "typing", "Any", "List", "Dict", "Union", "Optional"
-        ]
+        self.required_imports = ["typing", "Any", "List", "Dict", "Union", "Optional"]
 
     def check_file_typing(self, file_path: str) -> Tuple[bool, List[str]]:
         """Check if file has proper type annotations."""
         try:
-            with open(file_path, 'r') as f:
+            with open(file_path, "r") as f:
                 content = f.read()
 
             tree = ast.parse(content)
@@ -177,7 +175,9 @@ class PolymorphismTester:
             file_path = "ex0/stream_processor.py"
 
             # Check type annotations first
-            has_proper_typing, typing_issues = self.type_checker.check_file_typing(file_path)
+            has_proper_typing, typing_issues = self.type_checker.check_file_typing(
+                file_path
+            )
             if not has_proper_typing:
                 result.add_error("Type annotation issues found:")
                 for issue in typing_issues:
@@ -192,8 +192,10 @@ class PolymorphismTester:
             else:
                 # Verify required classes exist
                 required_classes = [
-                    'DataProcessor', 'NumericProcessor',
-                    'TextProcessor', 'LogProcessor'
+                    "DataProcessor",
+                    "NumericProcessor",
+                    "TextProcessor",
+                    "LogProcessor",
                 ]
                 missing_classes = []
 
@@ -207,10 +209,10 @@ class PolymorphismTester:
                     print("✓ All required classes found")
 
                     # Test inheritance relationships
-                    DataProcessor = getattr(stream_processor, 'DataProcessor')
-                    NumericProcessor = getattr(stream_processor, 'NumericProcessor')
-                    TextProcessor = getattr(stream_processor, 'TextProcessor')
-                    LogProcessor = getattr(stream_processor, 'LogProcessor')
+                    DataProcessor = getattr(stream_processor, "DataProcessor")
+                    NumericProcessor = getattr(stream_processor, "NumericProcessor")
+                    TextProcessor = getattr(stream_processor, "TextProcessor")
+                    LogProcessor = getattr(stream_processor, "LogProcessor")
 
                     if not issubclass(NumericProcessor, DataProcessor):
                         result.add_error(
@@ -221,9 +223,7 @@ class PolymorphismTester:
                             "TextProcessor must inherit from DataProcessor"
                         )
                     if not issubclass(LogProcessor, DataProcessor):
-                        result.add_error(
-                            "LogProcessor must inherit from DataProcessor"
-                        )
+                        result.add_error("LogProcessor must inherit from DataProcessor")
 
                     if not result.errors:
                         print("✓ Inheritance relationships verified")
@@ -236,10 +236,10 @@ class PolymorphismTester:
 
                             # Verify methods exist and are callable
                             for processor in [numeric_proc, text_proc, log_proc]:
-                                for method in ['process', 'validate',
-                                               'format_output']:
-                                    if not hasattr(processor, method) or \
-                                       not callable(getattr(processor, method)):
+                                for method in ["process", "validate", "format_output"]:
+                                    if not hasattr(processor, method) or not callable(
+                                        getattr(processor, method)
+                                    ):
                                         result.add_error(
                                             f"{processor.__class__.__name__} "
                                             f"missing method: {method}"
@@ -251,7 +251,9 @@ class PolymorphismTester:
                                     result.mark_passed()
 
                         except Exception as e:
-                            result.add_error(f"Error testing method overriding: {str(e)}")
+                            result.add_error(
+                                f"Error testing method overriding: {str(e)}"
+                            )
 
         except Exception as e:
             result.add_error(f"Unexpected error: {str(e)}")
@@ -271,7 +273,9 @@ class PolymorphismTester:
             file_path = "ex1/data_stream.py"
 
             # Check type annotations first
-            has_proper_typing, typing_issues = self.type_checker.check_file_typing(file_path)
+            has_proper_typing, typing_issues = self.type_checker.check_file_typing(
+                file_path
+            )
             if not has_proper_typing:
                 result.add_error("Type annotation issues found:")
                 for issue in typing_issues:
@@ -286,8 +290,11 @@ class PolymorphismTester:
             else:
                 # Verify required classes exist
                 required_classes = [
-                    'DataStream', 'SensorStream', 'TransactionStream',
-                    'EventStream', 'StreamProcessor'
+                    "DataStream",
+                    "SensorStream",
+                    "TransactionStream",
+                    "EventStream",
+                    "StreamProcessor",
                 ]
                 missing_classes = []
 
@@ -301,15 +308,13 @@ class PolymorphismTester:
                     print("✓ All required classes found")
 
                     # Test inheritance and polymorphism
-                    DataStream = getattr(data_stream, 'DataStream')
-                    SensorStream = getattr(data_stream, 'SensorStream')
-                    TransactionStream = getattr(data_stream, 'TransactionStream')
-                    EventStream = getattr(data_stream, 'EventStream')
+                    DataStream = getattr(data_stream, "DataStream")
+                    SensorStream = getattr(data_stream, "SensorStream")
+                    TransactionStream = getattr(data_stream, "TransactionStream")
+                    EventStream = getattr(data_stream, "EventStream")
 
                     # Verify inheritance
-                    stream_classes = [
-                        SensorStream, TransactionStream, EventStream
-                    ]
+                    stream_classes = [SensorStream, TransactionStream, EventStream]
                     for stream_class in stream_classes:
                         if not issubclass(stream_class, DataStream):
                             result.add_error(
@@ -329,8 +334,9 @@ class PolymorphismTester:
                             # Verify polymorphic processing
                             streams = [sensor, transaction, event]
                             for stream in streams:
-                                if not hasattr(stream, 'process_batch') or \
-                                   not callable(getattr(stream, 'process_batch')):
+                                if not hasattr(stream, "process_batch") or not callable(
+                                    getattr(stream, "process_batch")
+                                ):
                                     result.add_error(
                                         f"{stream.__class__.__name__} "
                                         f"missing process_batch method"
@@ -342,7 +348,9 @@ class PolymorphismTester:
                                     result.mark_passed()
 
                         except Exception as e:
-                            result.add_error(f"Error testing polymorphic behavior: {str(e)}")
+                            result.add_error(
+                                f"Error testing polymorphic behavior: {str(e)}"
+                            )
 
         except Exception as e:
             result.add_error(f"Unexpected error: {str(e)}")
@@ -362,7 +370,9 @@ class PolymorphismTester:
             file_path = "ex2/nexus_pipeline.py"
 
             # Check type annotations first
-            has_proper_typing, typing_issues = self.type_checker.check_file_typing(file_path)
+            has_proper_typing, typing_issues = self.type_checker.check_file_typing(
+                file_path
+            )
             if not has_proper_typing:
                 result.add_error("Type annotation issues found:")
                 for issue in typing_issues:
@@ -377,9 +387,14 @@ class PolymorphismTester:
             else:
                 # Verify required classes exist
                 required_classes = [
-                    'ProcessingPipeline', 'InputStage', 'TransformStage',
-                    'OutputStage', 'JSONAdapter', 'CSVAdapter',
-                    'StreamAdapter', 'NexusManager'
+                    "ProcessingPipeline",
+                    "InputStage",
+                    "TransformStage",
+                    "OutputStage",
+                    "JSONAdapter",
+                    "CSVAdapter",
+                    "StreamAdapter",
+                    "NexusManager",
                 ]
                 missing_classes = []
 
@@ -393,15 +408,13 @@ class PolymorphismTester:
                     print("✓ All required classes found")
 
                     # Test complex inheritance hierarchy
-                    ProcessingPipeline = getattr(nexus_pipeline, 'ProcessingPipeline')
-                    JSONAdapter = getattr(nexus_pipeline, 'JSONAdapter')
-                    CSVAdapter = getattr(nexus_pipeline, 'CSVAdapter')
-                    StreamAdapter = getattr(nexus_pipeline, 'StreamAdapter')
+                    ProcessingPipeline = getattr(nexus_pipeline, "ProcessingPipeline")
+                    JSONAdapter = getattr(nexus_pipeline, "JSONAdapter")
+                    CSVAdapter = getattr(nexus_pipeline, "CSVAdapter")
+                    StreamAdapter = getattr(nexus_pipeline, "StreamAdapter")
 
                     # Verify inheritance
-                    adapter_classes = [
-                        JSONAdapter, CSVAdapter, StreamAdapter
-                    ]
+                    adapter_classes = [JSONAdapter, CSVAdapter, StreamAdapter]
                     for adapter_class in adapter_classes:
                         if not issubclass(adapter_class, ProcessingPipeline):
                             result.add_error(
@@ -419,24 +432,27 @@ class PolymorphismTester:
                             csv_adapter = CSVAdapter("CSV_001")
                             stream_adapter = StreamAdapter("STREAM_001")
 
-                            adapters = [
-                                json_adapter, csv_adapter, stream_adapter
-                            ]
+                            adapters = [json_adapter, csv_adapter, stream_adapter]
                             for adapter in adapters:
-                                if not hasattr(adapter, 'process') or \
-                                   not callable(getattr(adapter, 'process')):
+                                if not hasattr(adapter, "process") or not callable(
+                                    getattr(adapter, "process")
+                                ):
                                     result.add_error(
                                         f"{adapter.__class__.__name__} "
                                         f"missing process method"
                                     )
 
                             if not result.errors:
-                                print("✓ Enterprise-level polymorphism implemented correctly")
+                                print(
+                                    "✓ Enterprise-level polymorphism implemented correctly"
+                                )
                                 if has_proper_typing:
                                     result.mark_passed()
 
                         except Exception as e:
-                            result.add_error(f"Error testing enterprise polymorphism: {str(e)}")
+                            result.add_error(
+                                f"Error testing enterprise polymorphism: {str(e)}"
+                            )
 
         except Exception as e:
             result.add_error(f"Unexpected error: {str(e)}")
@@ -458,13 +474,16 @@ class PolymorphismTester:
         print(f"Exercises passed: {passed_count}/{total_count}")
 
         if passed_count == total_count:
-            print("🎉 All tests passed! Your polymorphic implementations "
-                  "with type annotations are working correctly.")
+            print(
+                "🎉 All tests passed! Your polymorphic implementations "
+                "with type annotations are working correctly."
+            )
         else:
-            print("⚠️  Some exercises need work. "
-                  "Check the error messages above.")
-            print("Make sure you've implemented all required classes, "
-                  "methods, and type annotations.")
+            print("⚠️  Some exercises need work. " "Check the error messages above.")
+            print(
+                "Make sure you've implemented all required classes, "
+                "methods, and type annotations."
+            )
 
         # Display detailed errors if any
         for result in self.results:
@@ -473,10 +492,11 @@ class PolymorphismTester:
                 for error in result.errors:
                     print(f"   • {error}")
 
-        print("\nRemember: This tests basic functionality "
-              "and type annotations.")
-        print("Make sure your code demonstrates proper polymorphic behavior "
-              "with complete typing!")
+        print("\nRemember: This tests basic functionality " "and type annotations.")
+        print(
+            "Make sure your code demonstrates proper polymorphic behavior "
+            "with complete typing!"
+        )
 
 
 def print_help() -> None:
@@ -529,10 +549,10 @@ def main() -> None:
     # Parse command line arguments
     verbose = False
     if len(sys.argv) > 1:
-        if sys.argv[1] in ['-h', '--help']:
+        if sys.argv[1] in ["-h", "--help"]:
             print_help()
             sys.exit(0)
-        elif sys.argv[1] in ['-v', '--verbose']:
+        elif sys.argv[1] in ["-v", "--verbose"]:
             verbose = True
         else:
             print(f"Unknown option: {sys.argv[1]}")
@@ -555,8 +575,10 @@ def main() -> None:
     if missing_dirs:
         print("❌ Exercise directories not found!")
         print(f"Missing: {', '.join(missing_dirs)}")
-        print("Please ensure your exercise files are in "
-              "ex0/, ex1/, and ex2/ directories")
+        print(
+            "Please ensure your exercise files are in "
+            "ex0/, ex1/, and ex2/ directories"
+        )
         print("\nUse --help for more information")
         sys.exit(1)
 

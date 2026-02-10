@@ -4,6 +4,7 @@
 from abc import ABC, abstractmethod
 from typing import Any, List, Dict, Union, Optional
 
+
 class DataStream(ABC):
     def __init__(self, stream_type: str):
         self.stream_type = stream_type
@@ -13,17 +14,16 @@ class DataStream(ABC):
     def process_batch(self, data_batch: List[Any]) -> str:
         pass
 
-    def filter_data(self, data_batch: List[Any],
-                    criteria: Optional[str]= None) -> List[Any]:
+    def filter_data(
+        self, data_batch: List[Any], criteria: Optional[str] = None
+    ) -> List[Any]:
         if criteria is None:
             return data_batch
         return [item for item in data_batch if data == criteria]
 
     def get_stats(self) -> Dict[str, Union[str, int, float]]:
-        return {
-            "ID":self.stream_id,
-            "Type" : self.stream_type
-        }
+        return {"ID": self.stream_id, "Type": self.stream_type}
+
 
 class SensorStream(DataStream):
     def __init__(self, stream_id):
@@ -42,17 +42,20 @@ class SensorStream(DataStream):
             counter += data.__len__()
             self.counter += 1
         if temp.__len__() != 0:
-        	return f"{counter} readings processed, avg temp: {sum(temp)/temp.__len__()}°C"
+            return (
+                f"{counter} readings processed, avg temp: {sum(temp)/temp.__len__()}°C"
+            )
         else:
-        	return f"{counter} readings processed."
+            return f"{counter} readings processed."
 
-
-
-    def filter_data(self, data_batch: List[Any],criteria: Optional[str]= None) -> List[Any]:
+    def filter_data(
+        self, data_batch: List[Any], criteria: Optional[str] = None
+    ) -> List[Any]:
         if criteria is None:
             return data_batch
-        return [item for item in data_batch 
-                if criteria == "high_temp" and item["temp"] > 22]
+        return [
+            item for item in data_batch if criteria == "high_temp" and item["temp"] > 22
+        ]
 
 
 class TransactionStream(DataStream):
@@ -71,16 +74,22 @@ class TransactionStream(DataStream):
                     if action == "sell":
                         sell += num
                     self.counter += 1
-            result = buy - sell 
+            result = buy - sell
             return f"{len(data_batch)} operations, net flow: {'+' if result > 0 else ''}{result}"
-        except Exception as e :
+        except Exception as e:
             print(f"An error occurred while processing the transaction batch:{e}")
 
-    def filter_data(self, data_batch: List[Any],criteria: Optional[str]= None) -> List[Any]:
+    def filter_data(
+        self, data_batch: List[Any], criteria: Optional[str] = None
+    ) -> List[Any]:
         if criteria is None:
             return data_batch
-        return [item for item in data_batch 
-                if criteria == "large_trans" and item["buy"] > 150]
+        return [
+            item
+            for item in data_batch
+            if criteria == "large_trans" and item["buy"] > 150
+        ]
+
 
 class EventStream(DataStream):
     def __init__(self, stream_id):
@@ -96,7 +105,7 @@ class EventStream(DataStream):
         return f"{data_batch.__len__()} events, {error} error detected"
 
 
-class StreamProcessor():
+class StreamProcessor:
     def __init__(self, streams: List[DataStream]):
         self.streams = streams
 
@@ -117,13 +126,20 @@ class StreamProcessor():
 
     def apply_filter(self):
         print("Stream filtering active: High-priority data only")
-        temp = self.streams[0].filter_data([{"temp": 23.0}, {"temp": 26.0}],"high_temp")
-        transaction = self.streams[1].filter_data([{"buy": 19}, {"buy": 193}],"large_trans")
-        print(f"Filtered results: {len(temp)} critical sensor alerts,"
-            f" {len(transaction)} large transaction.\n")
+        temp = self.streams[0].filter_data(
+            [{"temp": 23.0}, {"temp": 26.0}], "high_temp"
+        )
+        transaction = self.streams[1].filter_data(
+            [{"buy": 19}, {"buy": 193}], "large_trans"
+        )
+        print(
+            f"Filtered results: {len(temp)} critical sensor alerts,"
+            f" {len(transaction)} large transaction.\n"
+        )
+
 
 def main():
-    data_sensor = [{"temp": 22.5, "humidity":65, "pressure":1013}]
+    data_sensor = [{"temp": 22.5, "humidity": 65, "pressure": 1013}]
     data_trans = [{"buy": 100}, {"sell": 150}, {"buy": 75}]
     data_event = ["login", "error", "logout"]
     print("=== CODE NEXUS - POLYMORPHIC STREAM SYSTEM ===\n")
@@ -134,7 +150,6 @@ def main():
     print(f"Stream ID: {data['ID']}, Type: {data['Type']}")
     print("Processing sensor batch:", data_sensor)
     print(f"Sensor analysis: {sensor.process_batch(data_sensor)}\n")
-
 
     transaction = TransactionStream(1)
     data = transaction.get_stats()
@@ -150,18 +165,15 @@ def main():
     print("Processing Event batch:", data_event)
     print(f"Event analysis {event.process_batch(data_event)}\n")
 
-
     batches = {
         "sensor": [{"temp": 8.5}, {"temp": 18.5}],
         "transaction": [{"buy": 19}, {"buy": 93}, {"buy": 87}, {"sell": 10}],
         "event": ["login", "error", "logout"],
     }
-    stream = StreamProcessor([SensorStream(2),
-                                TransactionStream(2),
-                                EventStream(1)])
+    stream = StreamProcessor([SensorStream(2), TransactionStream(2), EventStream(1)])
     stream.process_data(batches)
     stream.apply_filter()
     print("All streams processed successfully. Nexus throughput optimal.")
 
-main()
 
+main()
