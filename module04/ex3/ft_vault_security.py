@@ -6,14 +6,16 @@ def function():
     print("Initiating secure vault access...")
     print("Vault connection established with failsafe protocols\n")
     print("SECURE EXTRACTION:")
-    with open("../classified_data.txt", 'r') as f:
+    with open("./classified_data.txt", 'r') as f:
         print(f"{f.read()}\n")
 
-    print("SECURE EXTRACTION:")
+    print("SECURE PRESERVATION:")
+    with open("../security_protocols.txt", 'w') as f:
+        f.write("{[}CLASSIFIED{]} New security protocols archived\n")
+        f.write("Vault automatically sealed upon completion\n")
+
     with open("../security_protocols.txt", 'r') as f:
         print(f"{f.read()}")
-    print("Vault automatically sealed upon completion\n")
-    print("")
     print("All vault operations completed with maximum security.")
 
 

@@ -7,6 +7,7 @@ def display_content(file_path: str):
         f = open(file_path)
         print("Connection established...")
         print("")
+        print("RECOVERED DATA:")
         print(f.read())
         f.close()
     except FileNotFoundError:
@@ -18,4 +19,4 @@ def display_content(file_path: str):
 
 print("=== CYBER ARCHIVES - DATA RECOVERY SYSTEM ===\n")
 print("")
-display_content("../oumaima.txt")
+display_content("./ancient_fragment.txt")
