@@ -5,9 +5,9 @@ def function():
     and overall security completion."""
     print("=== CYBER ARCHIVES - CRISIS RESPONSE SYSTEM ===\n")
     files = [
-        "sws.txt",
-        "test.txt",
-        "../standard_archive.txt"
+        "lost_archive.txt",
+        "classified_vault.txt",
+        "standard_archive.txt"
     ]
     print(f"CRISIS ALERT: Attempting access to {files[0]} ...")
     try:
@@ -19,9 +19,9 @@ def function():
 
     print(f"CRISIS ALERT: Attempting access to {files[1]} ...")
     try:
-        with open(files[1], 'w') as f:
+        with open(files[1], 'r') as f:
             pass
-    except PermissionError:
+    except (PermissionError, Exception):
         print("RESPONSE: Security protocols deny access")
     print("STATUS: Crisis handled, security maintained\n")
 
