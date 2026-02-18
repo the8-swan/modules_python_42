@@ -16,7 +16,7 @@ class DataProcessor(ABC):
 
 
 class NumericProcessor(DataProcessor):
-    def __init__(self):
+    def __init__(self) -> Any:
         pass
 
     def validate(self, data: Any) -> bool:
@@ -35,7 +35,7 @@ class NumericProcessor(DataProcessor):
 
 
 class TextProcessor(DataProcessor):
-    def __init__(self):
+    def __init__(self) -> Any:
         pass
 
     def validate(self, data: Any) -> bool:
@@ -48,7 +48,7 @@ class TextProcessor(DataProcessor):
 
 
 class LogProcessor(DataProcessor):
-    def __init__(self):
+    def __init__(self) -> Any:
         pass
 
     def validate(self, data: Any) -> bool:

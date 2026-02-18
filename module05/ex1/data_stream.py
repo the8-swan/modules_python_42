@@ -1,12 +1,9 @@
-# class, def, super(), isinstance(), print(), try/except, list
-# comprehensions, from abc import ABC abstractmethod, from typing import Any
-# List Dict Union Optional
 from abc import ABC, abstractmethod
 from typing import Any, List, Dict, Union, Optional
 
 
 class DataStream(ABC):
-    def __init__(self, stream_type: str):
+    def __init__(self, stream_type: str) -> Any:
         self.stream_type = stream_type
         self.counter = 0
 
@@ -19,14 +16,14 @@ class DataStream(ABC):
     ) -> List[Any]:
         if criteria is None:
             return data_batch
-        return [item for item in data_batch if data == criteria]
+        return [item for item in data_batch if item == criteria]
 
     def get_stats(self) -> Dict[str, Union[str, int, float]]:
         return {"ID": self.stream_id, "Type": self.stream_type}
 
 
 class SensorStream(DataStream):
-    def __init__(self, stream_id):
+    def __init__(self, stream_id: int) -> Any:
         super().__init__("Environmental Data")
         self.stream_id = f"SENSOR_{stream_id}"
 
@@ -59,7 +56,7 @@ class SensorStream(DataStream):
 
 
 class TransactionStream(DataStream):
-    def __init__(self, stream_id):
+    def __init__(self, stream_id: int) -> Any:
         super().__init__("Financial Data")
         self.stream_id = f"TRANS_{stream_id}"
 
@@ -92,7 +89,7 @@ class TransactionStream(DataStream):
 
 
 class EventStream(DataStream):
-    def __init__(self, stream_id):
+    def __init__(self, stream_id: int) -> Any:
         super().__init__("System Events")
         self.stream_id = f"EVENT_{stream_id}"
 
@@ -106,7 +103,7 @@ class EventStream(DataStream):
 
 
 class StreamProcessor:
-    def __init__(self, streams: List[DataStream]):
+    def __init__(self, streams: List[DataStream]) -> Any:
         self.streams = streams
 
     def process_data(self, batches: dict) -> None:
@@ -124,7 +121,7 @@ class StreamProcessor:
                 print(f"-Event data: {stream.counter} events processed")
         print("")
 
-    def apply_filter(self):
+    def apply_filter(self) -> Any:
         print("Stream filtering active: High-priority data only")
         temp = self.streams[0].filter_data(
             [{"temp": 23.0}, {"temp": 26.0}], "high_temp"
@@ -138,7 +135,7 @@ class StreamProcessor:
         )
 
 
-def main():
+def main() -> Any:
     data_sensor = [{"temp": 22.5, "humidity": 65, "pressure": 1013}]
     data_trans = [{"buy": 100}, {"sell": 150}, {"buy": 75}]
     data_event = ["login", "error", "logout"]
