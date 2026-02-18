@@ -23,19 +23,19 @@ class InputStage:
     def process(self, data: Any) -> Any:
         if data is None:
             raise ValueError("Invalid data input")
-        print(f"Input: {data}")
         return data
 
 
 class TransformStage:
     def process(self, data: Any) -> Dict:
-        temp = data["value"]
-        if 17 <= data["value"] <= 25:
-            data["status"] = "Normal range"
-        elif data["value"] < 17:
-            data["status"] = "too cold"
-        else:
-            data["status"] = "too hot"
+        if isinstance(data, dict):
+            temp = data["value"]
+            if 17 <= data["value"] <= 25:
+                data["status"] = "Normal range"
+            elif data["value"] < 17:
+                data["status"] = "too cold"
+            else:
+                data["status"] = "too hot"
         return data
 
 
@@ -50,16 +50,17 @@ class JSONAdapter(ProcessingPipeline):
         self.pipeline_id = pipeline_id
 
     def process(self, data: Any) -> Union[str,Any]:
-        for stage in self.stages[:2]:
-            data = stage.process(data)
-        
-        tmp = data["value"]
-        unit = data["unit"]
-        message = data["status"]
-        return (f"{self.stages[2].process(data)} Processed temperature reading:"
-                f"{tmp}°{unit} ({message})"
-                )
-        
+        try:
+            for stage in self.stages[:2]:
+                data = stage.process(data)
+            tmp = data["value"]
+            unit = data["unit"]
+            message = data["status"]
+            return (f"{self.stages[2].process(data)} Processed temperature "
+                    f"reading: {tmp}°{unit} ({message})"
+                    )
+        except Exception as e:
+            print("Error:", e)
 
 
 class CSVAdapter(ProcessingPipeline):
@@ -68,8 +69,15 @@ class CSVAdapter(ProcessingPipeline):
     	self.pipeline_id = pipeline_id
 
     def process(self, data: Any)-> Union[str,Any]:
-        for stage in self.stages[:2]:
-            data = stage.process(data)
+        try:
+            for stage in self.stages[:2]:
+                data = stage.process(data)
+            lines = data.strip().split("\n")
+            
+            print(f"Input: {lines[0]}")
+            return "hello"
+        except Exception as e:
+            print("Error:", e)
 
 # class StreamAdapter(ProcessingPipeline):
 # 	def __init__(self, pipeline_id: int):
@@ -88,7 +96,12 @@ class NexusManager:
 def main() -> None:
     print("=== CODE NEXUS - ENTERPRISE PIPELINE SYSTEM ===\n")
     json_data = {"sensor": "temp", "value": 23.5, "unit": "C"}
-    csv_data = "hellow"
+    csv_data = """user,action,timestamp
+                alice,login,2026-02-15 10:00
+                bob,logout,2026-02-15 10:05
+                carol,login,2026-02-15 10:10
+                """
+
     nexusManager = NexusManager()
     print(
         "Creating Data Processing Pipeline...\n"
@@ -106,14 +119,16 @@ def main() -> None:
         csvAdapter.add_stage(stage)
 
     print("Processing JSON data through pipeline...")
+    print(json_data)
     result_json = jsonAdapter.process(json_data)
     print("Transform: Parsed and structured data")
     print(f"{result_json}\n")
 
     print("Processing CSV data through same pipeline...")
+    print()
     result_csv= csvAdapter.process(csv_data)
     print("Transform: Parsed and structured data")
-    //print(f"{result_csv}\n")
+    print(f"{result_csv}\n")
 
     # streamAdapter = StreamAdapter(1)
     # streamAdapter.add_stage(InputStage)
