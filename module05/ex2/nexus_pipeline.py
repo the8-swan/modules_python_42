@@ -45,7 +45,7 @@ class OutputStage:
 
 
 class JSONAdapter(ProcessingPipeline):
-    def __init__(self, pipeline_id: int):
+    def __init__(self, pipeline_id: int) -> None:
         super().__init__()
         self.pipeline_id = pipeline_id
 
@@ -62,13 +62,14 @@ class JSONAdapter(ProcessingPipeline):
         
 
 
-# class CSVAdapter(ProcessingPipeline):
-# 	def __init__(self, pipeline_id: int):
-# 		super().__init__()
-# 		self.pipeline_id = pipeline_id
+class CSVAdapter(ProcessingPipeline):
+    def __init__(self, pipeline_id: int) -> None:
+    	super().__init__()
+    	self.pipeline_id = pipeline_id
 
-# 	def process(self, data: Any)-> Any:
-# 		pass
+    def process(self, data: Any)-> Union[str,Any]:
+        for stage in self.stages[:2]:
+            data = stage.process(data)
 
 # class StreamAdapter(ProcessingPipeline):
 # 	def __init__(self, pipeline_id: int):
@@ -87,6 +88,7 @@ class NexusManager:
 def main() -> None:
     print("=== CODE NEXUS - ENTERPRISE PIPELINE SYSTEM ===\n")
     json_data = {"sensor": "temp", "value": 23.5, "unit": "C"}
+    csv_data = "hellow"
     nexusManager = NexusManager()
     print(
         "Creating Data Processing Pipeline...\n"
@@ -98,18 +100,20 @@ def main() -> None:
     print("=== Multi-Format Data Processing ===\n")
     stages = [InputStage(), TransformStage(), OutputStage()]
     jsonAdapter = JSONAdapter(1)
+    csvAdapter = CSVAdapter(1)
     for stage in stages:
         jsonAdapter.add_stage(stage)
+        csvAdapter.add_stage(stage)
 
     print("Processing JSON data through pipeline...")
-    result = jsonAdapter.process(json_data)
+    result_json = jsonAdapter.process(json_data)
     print("Transform: Parsed and structured data")
-    print(result)
+    print(f"{result_json}\n")
 
-    # csvAdapter = CSVAdapter(1)
-    # csvAdapter.add_stage(InputStage)
-    # csvAdapter.add_stage(TransformStage)
-    # csvAdapter.add_stage(OutputStage)
+    print("Processing CSV data through same pipeline...")
+    result_csv= csvAdapter.process(csv_data)
+    print("Transform: Parsed and structured data")
+    //print(f"{result_csv}\n")
 
     # streamAdapter = StreamAdapter(1)
     # streamAdapter.add_stage(InputStage)
