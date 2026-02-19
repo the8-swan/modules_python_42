@@ -17,5 +17,3 @@ print(f"alchemy.transmutation.lead_to_gold(): {lead_to_gold()}")
 print(f"alchemy.transmutation.philosophers_stone(): {philosophers_stone()}\n")
 
 print("Both pathways work! Absolute: clear, Relative: concise")
-
-
