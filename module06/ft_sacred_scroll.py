@@ -1,4 +1,5 @@
 import alchemy
+import alchemy.elements
 
 print("=== Sacred Scroll Mastery ===\n")
 print("Testing direct module access:")

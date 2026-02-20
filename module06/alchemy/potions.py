@@ -10,7 +10,8 @@ def strength_potion():
 
 
 def invisibility_potion():
-    return f"Invisibility potion brewed with {create_air()}" f"and  {create_water()}"
+    return (f"Invisibility potion brewed with {create_air()}"
+            f" and {create_water()}")
 
 
 def wisdom_potion():
