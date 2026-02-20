@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, List, Dict, Union, Optional, Protocol
+from typing import Any, List, Dict, Union, Protocol
 import random
 
 
@@ -156,7 +156,7 @@ def main() -> None:
     csvAdapter = CSVAdapter(1)
     streamAdapter = StreamAdapter(1)
 
-    adapters = [jsonAdapter, csvAdapter, streamAdapter]
+    adapters = [jsonAdapter]
     for stage in stages:
         jsonAdapter.add_stage(stage)
         csvAdapter.add_stage(stage)
@@ -185,10 +185,13 @@ def main() -> None:
 
     nexusManager = NexusManager()
     records = [
-        {"sensor": "temp", "value": round(random.uniform(20.0, 30.0), 2), "unit": "C"}
+        {
+            "sensor": "temp",
+            "value": round(random.uniform(20.0, 30.0), 2),
+            "unit": "C"}
         for _ in range(100)
     ]
-    for i in range(3):
+    for i in range(1):
         nexusManager.add_pipeline(adapters[i])
     results = []
     for record in records:

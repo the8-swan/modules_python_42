@@ -31,7 +31,8 @@ class NumericProcessor(DataProcessor):
     def process(self, data: Any) -> str:
         summ: int = sum(data[0:])
         length: int = len(data)
-        return f"processed {length} numeric values, sum={summ} , avg ={summ/length}"
+        return (f"processed {length} numeric values, sum={summ} ,"
+                f" avg ={summ/length}")
 
 
 class TextProcessor(DataProcessor):
@@ -44,7 +45,8 @@ class TextProcessor(DataProcessor):
         return True
 
     def process(self, data: Any) -> str:
-        return f"Processed text: {len(data)} characters, {len(data.split())} words"
+        return (f"Processed text: {len(data)} characters,"
+                f" {len(data.split())} words")
 
 
 class LogProcessor(DataProcessor):

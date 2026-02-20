@@ -35,12 +35,15 @@ class SensorStream(DataStream):
                 if isinstance(data["temp"], (int, float)):
                     temp.append(data["temp"])
                 else:
-                    print(f"Error : temp value should be a number '{data['temp']}'")
+                    print(
+                            f"Error : temp value should be a number"
+                            f" '{data['temp']}'")
             counter += data.__len__()
             self.counter += 1
         if temp.__len__() != 0:
             return (
-                f"{counter} readings processed, avg temp: {sum(temp)/temp.__len__()}°C"
+                f"{counter} readings processed, avg temp:"
+                f" {sum(temp)/temp.__len__()}°C"
             )
         else:
             return f"{counter} readings processed."
@@ -51,7 +54,8 @@ class SensorStream(DataStream):
         if criteria is None:
             return data_batch
         return [
-            item for item in data_batch if criteria == "high_temp" and item["temp"] > 22
+            item for item in data_batch
+            if criteria == "high_temp" and item["temp"] > 22
         ]
 
 
@@ -72,9 +76,12 @@ class TransactionStream(DataStream):
                         sell += num
                     self.counter += 1
             result = buy - sell
-            return f"{len(data_batch)} operations, net flow: {'+' if result > 0 else ''}{result}"
+            return (f"{len(data_batch)} operations, net flow:"
+                    f"{'+' if result > 0 else ''}{result}")
         except Exception as e:
-            print(f"An error occurred while processing the transaction batch:{e}")
+            print(
+                    f"An error occurred while processing "
+                    f"the transaction batch:{e}")
 
     def filter_data(
         self, data_batch: List[Any], criteria: Optional[str] = None
@@ -116,7 +123,9 @@ class StreamProcessor:
             if isinstance(stream, SensorStream):
                 print(f"-Sensor data: {stream.counter} readings processed")
             if isinstance(stream, TransactionStream):
-                print(f"-Transaction data: {stream.counter} operations processed")
+                print(
+                        f"-Transaction data: {stream.counter} "
+                        f"operations processed")
             if isinstance(stream, EventStream):
                 print(f"-Event data: {stream.counter} events processed")
         print("")
@@ -167,7 +176,10 @@ def main() -> Any:
         "transaction": [{"buy": 19}, {"buy": 93}, {"buy": 87}, {"sell": 10}],
         "event": ["login", "error", "logout"],
     }
-    stream = StreamProcessor([SensorStream(2), TransactionStream(2), EventStream(1)])
+    stream = StreamProcessor([
+                                SensorStream(2),
+                                TransactionStream(2),
+                                EventStream(1)])
     stream.process_data(batches)
     stream.apply_filter()
     print("All streams processed successfully. Nexus throughput optimal.")
