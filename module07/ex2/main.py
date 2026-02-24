@@ -5,7 +5,7 @@ print("EliteCard capabilities:")
 data = [
     {"Card": ["play", "get_card_info", "is_playable"]},
     {"Compatable:": ["attack", "defend", "get_combat_stats"]},
-    {"Magical": ["cast_spell", "channel_mana", "get_magic_stats"]}
+    {"Magical": ["cast_spell", "channel_mana", "get_magic_stats"]},
 ]
 
 for d in data:
@@ -15,7 +15,7 @@ print("")
 print("Playing Arcane Warrior (Elite Card):\n")
 print("Combat phase:")
 
-eliteCard = EliteCard('Arcane Warrior', 5, "damage", 5)
+eliteCard = EliteCard("Arcane Warrior", 5, "damage", 5)
 print(f"Attack result: {eliteCard.attack('Enemy')}")
 print(f"Defense result: {eliteCard.defend(5)}\n")
 

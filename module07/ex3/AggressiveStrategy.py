@@ -9,17 +9,13 @@ class AggressiveStrategy(GameStrategy):
 
     def execute_turn(self, hand: list, battlefield: list) -> dict:
         for card in hand:
-            if self.counter + card.cost <= self.mana :
+            if self.counter + card.cost <= self.mana:
                 self.cards.append(card)
-                self.counter += card.cost 
-        return {
-            "cards": self.cards,
-            "targets_attacked": battlefield
-        }
+                self.counter += card.cost
+        return {"cards": self.cards, "targets_attacked": battlefield}
 
     def get_strategy_name(self) -> str:
         return "AggresiveStrategy"
 
     def prioritize_targets(self, available_targets: list) -> list:
         return available_targets
-

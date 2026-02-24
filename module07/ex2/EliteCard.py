@@ -18,36 +18,29 @@ class EliteCard(Card, Combatable, Magical):
 
     def attack(self, target) -> dict:
         return {
-            'attacker': self.name,
-            'target': target,
-            'damage': self.attack_power,
-            'combat_type': 'melee'
+            "attacker": self.name,
+            "target": target,
+            "damage": self.attack_power,
+            "combat_type": "melee",
         }
 
     def cast_spell(self, spell_name: str, targets: list) -> dict:
         return {
-            'caster': self.name,
-            'spell': spell_name,
-            'targets': targets,
-            'mana_used': 4
+            "caster": self.name,
+            "spell": spell_name,
+            "targets": targets,
+            "mana_used": 4,
         }
 
     def channel_mana(self, amount: int) -> dict:
         self.mana += amount
-        return {
-            'channeled': amount,
-            'total_mana': self.mana
-        }
+        return {"channeled": amount, "total_mana": self.mana}
 
     def get_magic_stats(self) -> dict:
         return {"mana": self.mana}
 
     def defend(self, incoming_damage: int) -> dict:
-        return {
-            'defender': self.name
-        }
+        return {"defender": self.name}
 
     def get_combat_stats(self) -> dict:
-        return {
-            'hillow': 'hillow'
-        }
+        return {"hillow": "hillow"}

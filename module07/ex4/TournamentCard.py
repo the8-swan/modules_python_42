@@ -1,10 +1,19 @@
 from ex2.Combatable import Combatable
 from ex4.Rankable import Rankable
 from ex0.Card import Card
- 
+
 
 class TournamentCard(Card, Combatable, Rankable):
-    def __init__(self, card_id: str, name: str, cost: int, rarity: str, rating: int, attack: int, health: int):
+    def __init__(
+        self,
+        card_id: str,
+        name: str,
+        cost: int,
+        rarity: str,
+        rating: int,
+        attack: int,
+        health: int,
+    ):
         super().__init__(name, cost, rarity)
         self.card_id = card_id
         self.rating = rating
@@ -13,34 +22,31 @@ class TournamentCard(Card, Combatable, Rankable):
         self.attack_power = attack
         self.health = health
 
-
     def play(self, game_state: dict) -> dict:
-        pass
+        return {
+            "card_played": self.name,
+            "mana_used": self.cost,
+        }
 
     def attack(self, target: "TournamentCard") -> dict:
         target.health -= self.attack_power
-        return {
-            'attacker_health': self.health,
-            'defender_health' : target.health
-    }
+        return {"attacker_health": self.health,
+                "defender_health": target.health}
 
     def calculate_rating(self) -> int:
         return self.rating
 
     def get_tournament_stats(self) -> dict:
-        return {
-            "wins": self.wins,
-            "loses": self.loses
-        }
+        return {"wins": self.wins, "loses": self.loses}
 
     def defend(self, incoming_damage: int) -> dict:
-        target.health -= incoming_damage
+        self.health -= incoming_damage
         return {
-            'defender': self.health,
+            "defender": self.health,
         }
 
     def get_combat_stats(self) -> dict:
-        pass
+        return {"attack": self.attack_power, "health": self.health}
 
     def update_wins(self, wins: int) -> None:
         self.wins += wins

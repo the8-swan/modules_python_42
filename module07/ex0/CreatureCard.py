@@ -2,12 +2,8 @@ from ex0.Card import Card
 
 
 class CreatureCard(Card):
-    def __init__(self,
-                 name: str,
-                 cost: int,
-                 rarity: str,
-                 attack: int,
-                 health: int):
+    def __init__(self, name: str, cost: int, rarity: str,
+                 attack: int, health: int):
         if attack < 0 or health < 0:
             raise ValueError("Attack and health should be positive integers")
         super().__init__(name, cost, rarity)
@@ -32,5 +28,7 @@ class CreatureCard(Card):
 
     def get_card_info(self) -> dict:
         info = super().get_card_info()
-        info.update({"type": self.type, "attack": self.attack, "health": self.health})
+        info.update({"type": self.type,
+                     "attack": self.attack,
+                     "health": self.health})
         return info

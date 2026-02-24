@@ -1,6 +1,6 @@
 from ex4.TournamentCard import TournamentCard
 
- 
+
 class TournamentPlatform:
     def __init__(self):
         self.cards = []
@@ -9,7 +9,7 @@ class TournamentPlatform:
     def register_card(self, card: TournamentCard) -> str:
         self.cards.append(card)
         return f"{card.name} (ID: {card.card_id}):"
-    
+
     def create_match(self, card1_id: str, card2_id: str) -> dict:
         card_1 = None
         card_2 = None
@@ -32,27 +32,29 @@ class TournamentPlatform:
         loser.update_losses(1)
         self.match += 1
         return {
-            'winner': winner.card_id,
-            'loser': loser.card_id,
-            'winner_rating': winner.get_rank_info(),
-            'loser_rating': loser.get_rank_info()
+            "winner": winner.card_id,
+            "loser": loser.card_id,
+            "winner_rating": winner.get_rank_info(),
+            "loser_rating": loser.get_rank_info(),
         }
-    
+
     def get_leaderboard(self) -> list:
-        sorted_cards = sorted(self.cards, key=lambda card: card.rating, reverse=True)
+        sorted_cards = sorted(self.cards,
+                              key=lambda card: card.rating, reverse=True)
         return [
-            f"{card.name} - Rating: {card.calculate_rating()} ({card.wins} - {card.loses})" for card in sorted_cards
+            f"{card.name} - Rating: {card.calculate_rating()}"
+            f"({card.wins} - {card.loses})"
+            for card in sorted_cards
         ]
-    
+
     def generate_tournament_report(self) -> dict:
         summ = 0
+        total_cards = len(self.cards)
         for card in self.cards:
             summ += card.rating
         return {
-            'total_cards': len(self.cards),
-            'matches_played': self.match,
-            'avg_rating':0 if len(self.cards)== 0 else int(summ/len(self.cards)),
-            'platform_status': 'active'
+            "total_cards": total_cards,
+            "matches_played": self.match,
+            "avg_rating": 0 if total_cards == 0 else int(summ / total_cards),
+            "platform_status": "active",
         }
-
-    

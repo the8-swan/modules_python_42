@@ -15,7 +15,7 @@ print(f"Strategy: {aggressiveStrategy.__class__.__name__} ")
 print(f"Available types: {gameEngine.factory.get_supported_types()}\n")
 
 print("Simulating aggressive turn...")
-print(f"Hand: ",end="")
+print("Hand: ", end="")
 print("Actions: ", gameEngine.simulate_turn())
 
 print("")
@@ -23,5 +23,3 @@ print(f"Game Report: {gameEngine.get_engine_status()}\n")
 
 
 print("Abstract Factory + Strategy Pattern: Maximum flexibility achieved!")
-
-

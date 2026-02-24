@@ -6,7 +6,7 @@ from typing import List
 import random
 
 
-class Deck():
+class Deck:
     def __init__(self) -> None:
         self.cards: List[Card] = []
 
@@ -43,9 +43,9 @@ class Deck():
             counter += 1
             costs += card.cost
         return {
-            'total_cards': self.cards.__len__(),
-            'creatures': creatures,
-            'spells': spells,
-            'artifacts': artifacts,
-            'avg_cost': 0 if counter == 0 else round(costs / counter, 2)
+            "total_cards": self.cards.__len__(),
+            "creatures": creatures,
+            "spells": spells,
+            "artifacts": artifacts,
+            "avg_cost": 0 if counter == 0 else round(costs / counter, 2),
         }
