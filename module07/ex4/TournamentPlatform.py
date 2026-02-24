@@ -1,4 +1,6 @@
 from ex4.TournamentCard import TournamentCard
+
+
 class TournamentPlatform:
     def __init__(self):
         self.cards = []

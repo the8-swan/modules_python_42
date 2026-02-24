@@ -1,6 +1,6 @@
 from ex4.TournamentCard import TournamentCard
 
-
+ 
 print("=== DataDeck Tournament Platform ===\n")
 
 print("Registering Tournament Cards...\n")
