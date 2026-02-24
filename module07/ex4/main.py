@@ -22,13 +22,16 @@ for card in cards:
 
 print("Creating tournament match...")
 
-print(f"Match result: {tournamentPlatform.create_match('dragon_001',
-                                                       'wizard_001')}\n")
+print(
+        f"Match result: "
+        f"{tournamentPlatform.create_match('dragon_001', 'wizard_001')}\n")
 
 print("Tournament Leaderboard:")
 leaderboard = tournamentPlatform.get_leaderboard()
+i = 0
 for classement in leaderboard:
-    print(f"- {classement}")
+    i += 1
+    print(f" {i}- {classement}")
 
 
 print("\nPlatform Report:")

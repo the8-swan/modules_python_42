@@ -7,7 +7,8 @@ class EliteCard(Card, Combatable, Magical):
     def __init__(self, name: str, cost: int, rarity: str, attack_power: int):
         super().__init__(name, cost, rarity)
         self.attack_power = attack_power
-        self.mana = 0
+        self.health = 8
+        self.mana = 4
 
     def play(self, game_state: dict) -> dict:
         return {
@@ -40,7 +41,13 @@ class EliteCard(Card, Combatable, Magical):
         return {"mana": self.mana}
 
     def defend(self, incoming_damage: int) -> dict:
-        return {"defender": self.name}
+        blocked = min(3, incoming_damage)
+        self.health -= (incoming_damage - blocked)
+        still_alive = self.health > 0
+        return {"defender": self.name,
+                "damage_taken": incoming_damage - blocked,
+                "damage_blocked": blocked,
+                "still_alive": still_alive}
 
     def get_combat_stats(self) -> dict:
         return {"mana": self.mana, "attacker": self.name}

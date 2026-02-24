@@ -43,7 +43,7 @@ class TournamentPlatform:
                               key=lambda card: card.rating, reverse=True)
         return [
             f"{card.name} - Rating: {card.calculate_rating()}"
-            f"({card.wins} - {card.loses})"
+            f" ({card.wins} - {card.loses})"
             for card in sorted_cards
         ]
 
