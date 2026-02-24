@@ -43,4 +43,4 @@ class EliteCard(Card, Combatable, Magical):
         return {"defender": self.name}
 
     def get_combat_stats(self) -> dict:
-        return {"hillow": "hillow"}
+        return {"mana": self.mana, "attacker": self.name}
