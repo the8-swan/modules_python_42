@@ -1,10 +1,11 @@
 import importlib
 import sys
 
+
 def create_data_report():
     import requests as rq
     import pandas as pd
-    import matplotlib.pyplot as plt 
+    import matplotlib.pyplot as plt
 
     print("Fetching Matrix data from the network...")
     URL = (

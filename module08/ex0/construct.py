@@ -2,7 +2,6 @@ import sys
 import site
 import os
 
-
 if sys.prefix == sys.base_prefix:
     print("MATRIX STATUS:  You're still plugged in\n")
 else:
@@ -15,13 +14,14 @@ if sys.prefix == sys.base_prefix:
     print("Virtual Environment: NONE detected\n")
     print(
         "WARNING: You're in the global environment!\n"
-        "The machines can see everything you install.\n")
+        "The machines can see everything you install.\n"
+    )
     print(
         "To enter the construct, run:\n"
         "python -m venv matrix_env\n"
         "source matrix_env/bin/activate # On Unix\n"
         "matrix_env\nScripts\nactivate # On Windows\n"
-          )
+    )
 
     print("Then run this program again.")
 else:
@@ -31,5 +31,6 @@ else:
     print(
         "SUCCESS: You're in an isolated environment!\n"
         "Safe to install packages without affecting\n"
-        "the global system.\n")
+        "the global system.\n"
+    )
     print(f"Package installation path:{site.getsitepackages()[0]}")
