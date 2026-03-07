@@ -13,6 +13,7 @@ mages = [{'name': 'Zara', 'power': 63, 'element': 'lightning'},
 
 spells = ['tornado', 'flash', 'meteor', 'heal']
 
+
 def artifact_sorter(artifacts: list[dict]) -> list[dict]:
     new_artifacts = sorted(artifacts,
                            key=lambda artifact: artifact["power"],
@@ -28,7 +29,7 @@ def power_filter(mages: list[dict], min_power: int) -> list[dict]:
 
 def spell_transformer(spells: list[str]) -> list[str]:
     transformed_spell = list(
-                    map(lambda spells: "*"+spells+"*", spells))
+                    map(lambda spells: "* "+spells+" *", spells))
     return transformed_spell
 
 
@@ -36,23 +37,27 @@ def mage_stats(mages: list[dict]) -> dict:
     data = {}
     sum = 0
     avg = 0
-    data["max_power"] = max(mages,key=lambda mages:mages["power"])["power"]
-    data["min_power"] = min(mages,key=lambda mages:mages["power"])["power"]
-    sum = sum(mages, key=lambda mages:mages["power"])
+    data["max_power"] = max(mages, key=lambda mages: mages["power"])["power"]
+    data["min_power"] = min(mages, key=lambda mages: mages["power"])["power"]
+    sum = sum(mages, key=lambda mages: mages["power"])
     avg = mages.__len__()
-    data["avg_power"] = sum/avg
+    data["avg_power"] = f"{sum/avg:.2f}"
     return data
 
 
 def main() -> None:
-    artifacts_sorted = artifact_sorter(artifacts)
-    print(artifacts_sorted)
-    filtred_mages = power_filter(mages, 65)
-    print(filtred_mages)
+    print("\nTesting artifact sorter...")
+    sorted_artifact = artifact_sorter(artifacts)
+    first = sorted_artifact[0]
+    second = sorted_artifact[1]
+    print(f"{first['name']} ({first['power']}) comes before "
+          f"{second['name']} ({second['power']})")
+
+    print("\nTesting spell transformer...")
     transformed_spell = spell_transformer(spells)
-    print(transformed_spell)
-    data= mage_stats(mages)
-    print("max values is : ", data["max_power"])
-    print("min values is : ", data["min_power"])
+    for spell in transformed_spell:
+        print(spell, end=' ')
+    print("")
+
 
 main()
