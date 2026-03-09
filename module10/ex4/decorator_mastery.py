@@ -5,6 +5,7 @@ import time
 def spell_timer(func: callable) -> callable:
     @wraps(func)
     def wrapper(*args, **kwargs):
+        print(f"Casting {func.__name__}...")
         start = time.time()
         result = func(*args, **kwargs)
         end = time.time()

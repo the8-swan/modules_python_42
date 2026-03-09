@@ -1,3 +1,6 @@
+from typing import Any
+
+
 def mage_counter():
     counter = 0
 
@@ -28,10 +31,10 @@ def enchantment_factory(enchantment_type: str) -> callable:
 def memory_vault() -> dict[str, callable]:
     data = {}
 
-    def store(key: any, value: any) -> None:
+    def store(key: Any, value: Any) -> None:
         data[key] = value
 
-    def recall(key: any) -> any:
+    def recall(key: Any) -> Any:
         if key in data.keys():
             if data[key]:
                 return data[key]

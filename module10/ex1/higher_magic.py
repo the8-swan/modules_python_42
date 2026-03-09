@@ -23,9 +23,7 @@ def conditional_caster(condition: callable, spell: callable) -> callable:
 
 def spell_sequence(spells: list[callable]) -> callable:
     def cast(x):
-        for spell in spells:
-            x = spell(x)
-        return x
+        return [spell(x) for spell in spells]
     return cast
 
 

@@ -35,13 +35,12 @@ def spell_transformer(spells: list[str]) -> list[str]:
 
 def mage_stats(mages: list[dict]) -> dict:
     data = {}
-    sum = 0
     avg = 0
     data["max_power"] = max(mages, key=lambda mages: mages["power"])["power"]
     data["min_power"] = min(mages, key=lambda mages: mages["power"])["power"]
-    sum = sum(mages, key=lambda mages: mages["power"])
+    total = sum(mage["power"] for mage in mages)
     avg = mages.__len__()
-    data["avg_power"] = f"{sum/avg:.2f}"
+    data["avg_power"] = f"{total/avg:.2f}"
     return data
 
 
