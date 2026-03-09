@@ -8,8 +8,8 @@ def spell_combiner(spell1: callable, spell2: callable) -> callable:
 
 
 def power_amplifier(base_spell: callable, multiplier: int) -> callable:
-    def combiner(x):
-        return multiplier * base_spell(x)
+    def combiner():
+        return multiplier * base_spell()
     return (combiner)
 
 
@@ -28,20 +28,30 @@ def spell_sequence(spells: list[callable]) -> callable:
         return x
     return cast
 
+
 def fireball(x) -> str:
     return "Fireball hits Dragon"
+
 
 def dragon(x) -> str:
     return "Heals Dragon"
 
+
+def fireball_func() -> int:
+    return 10
+
+
+mega_fireball = power_amplifier(fireball_func, 3)
+
+
 def main():
-    n = 3
-    test_values = [15, 8, 17]
-    test_targets = ['Dragon', 'Goblin', 'Wizard', 'Knight']
     print("Testing spell combiner...")
     combiner = spell_combiner(fireball, dragon)
     print(f"Combined spell result: {combiner(0)}")
 
     print("\nTesting power amplifier...")
+    print(f"Original: {fireball_func()}, "
+          f"Amplified: {mega_fireball()}")
+
 
 main()

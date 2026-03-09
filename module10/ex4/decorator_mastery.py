@@ -1,13 +1,6 @@
-#functools.wraps, staticmethod, print()
 from functools import wraps
 import time
 
-#@staticmethod
-
-# class MageGuild:
-# @staticmethod
-# def validate_mage_name(name: str) -> bool
-# def cast_spell(self, spell_name: str, power: int) -> str
 
 def spell_timer(func: callable) -> callable:
     @wraps(func)
@@ -19,8 +12,9 @@ def spell_timer(func: callable) -> callable:
         return result
     return wrapper
 
+
 def power_validator(min_power: int) -> callable:
-    def decorator(func :callable):
+    def decorator(func: callable):
         @wraps(func)
         def wrapper(*args, **kwargs):
             if args[2] < min_power:
@@ -30,14 +24,15 @@ def power_validator(min_power: int) -> callable:
         return wrapper
     return decorator
 
+
 def retry_spell(max_attempts: int) -> callable:
-    def decorator(func :callable):
+    def decorator(func: callable):
         @wraps(func)
         def wrapper(*args, **kwargs):
             for attempt in range(max_attempts):
                 try:
                     return func(*args, **kwargs)
-                except Exception as e:
+                except Exception:
                     print("Spell failed, retrying... "
                           f"({attempt+1}/{max_attempts})")
             return "Spell casting failed after max_attempts attempts"
@@ -66,9 +61,8 @@ class MageGuild:
 
 
 @spell_timer
-def casting(name: str)-> str:
+def casting(name: str) -> str:
     return f"{name} cast !"
-import random
 
 
 def main():
@@ -90,5 +84,5 @@ def main():
     except ValueError as e:
         print("Error:", e)
 
-main()
 
+main()
